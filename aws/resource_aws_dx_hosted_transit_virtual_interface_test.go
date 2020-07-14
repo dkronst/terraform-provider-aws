@@ -16,6 +16,8 @@ import (
 )
 
 func TestAccAwsDxHostedTransitVirtualInterface(t *testing.T) {
+	t.Skip("potential SDKv2 killer")
+
 	testCases := map[string]func(t *testing.T){
 		"basic":        testAccAwsDxHostedTransitVirtualInterface_basic,
 		"accepterTags": testAccAwsDxHostedTransitVirtualInterface_accepterTags,

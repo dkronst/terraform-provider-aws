@@ -16,6 +16,8 @@ import (
 
 // These tests need to be serialized, else resources get orphaned after "TooManyRequests" errors.
 func TestAccAWSAPIGatewayV2ApiMapping(t *testing.T) {
+	t.Skip("potential SDKv2 killer")
+
 	var certificateArn string
 	rName := acctest.RandomWithPrefix("tf-acc-test")
 

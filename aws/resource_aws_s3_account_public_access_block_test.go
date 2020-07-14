@@ -14,6 +14,8 @@ import (
 // S3 account-level settings must run serialized
 // for TeamCity environment
 func TestAccAWSS3Account(t *testing.T) {
+	t.Skip("potential SDKv2 killer")
+
 	testCases := map[string]map[string]func(t *testing.T){
 		"PublicAccessBlock": {
 			"basic":                 testAccAWSS3AccountPublicAccessBlock_basic,

@@ -13,6 +13,8 @@ import (
 )
 
 func TestAccAWSSpotDatafeedSubscription(t *testing.T) {
+	t.Skip("potential SDKv2 killer")
+
 	cases := map[string]func(t *testing.T){
 		"basic":      testAccAWSSpotDatafeedSubscription_basic,
 		"disappears": testAccAWSSpotDatafeedSubscription_disappears,

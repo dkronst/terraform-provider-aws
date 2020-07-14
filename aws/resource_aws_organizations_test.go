@@ -5,6 +5,8 @@ import (
 )
 
 func TestAccAWSOrganizations(t *testing.T) {
+	t.Skip("potential SDKv2 killer")
+
 	testCases := map[string]map[string]func(t *testing.T){
 		"Organization": {
 			"basic":                      testAccAwsOrganizationsOrganization_basic,

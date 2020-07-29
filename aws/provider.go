@@ -164,6 +164,13 @@ func Provider() terraform.ResourceProvider {
 				Default:     false,
 				Description: descriptions["s3_force_path_style"],
 			},
+
+			"http_proxy": {
+				Type:        schema.TypeString,
+				Optional:    true,
+				Default:     "",
+				Description: descriptions["http_proxy"],
+			},
 		},
 
 		DataSourcesMap: map[string]*schema.Resource{
@@ -1019,6 +1026,9 @@ func init() {
 			"i.e., http://s3.amazonaws.com/BUCKET/KEY. By default, the S3 client will\n" +
 			"use virtual hosted bucket addressing when possible\n" +
 			"(http://BUCKET.s3.amazonaws.com/KEY). Specific to the Amazon S3 service.",
+
+		"http_proxy": "Set this to the URL of the HTTPS proxy you wish to use. The URL should be\n" +
+			"in the format: hostname:port_number - e.g. http://proxy.example.com:3128",
 	}
 
 	endpointServiceNames = []string{
@@ -1184,6 +1194,7 @@ func providerConfigure(d *schema.ResourceData, terraformVersion string) (interfa
 		SkipRequestingAccountId: d.Get("skip_requesting_account_id").(bool),
 		SkipMetadataApiCheck:    d.Get("skip_metadata_api_check").(bool),
 		S3ForcePathStyle:        d.Get("s3_force_path_style").(bool),
+		HTTPProxy:               d.Get("http_proxy").(string),
 		terraformVersion:        terraformVersion,
 	}
 

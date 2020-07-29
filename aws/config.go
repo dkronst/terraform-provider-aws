@@ -180,6 +180,7 @@ type Config struct {
 	Endpoints        map[string]string
 	IgnoreTagsConfig *keyvaluetags.IgnoreConfig
 	Insecure         bool
+	HTTPProxy        string
 
 	SkipCredsValidation     bool
 	SkipGetEC2Platforms     bool
@@ -385,6 +386,7 @@ func (c *Config) Client() (interface{}, error) {
 		DebugLogging:                logging.IsDebugOrHigher(),
 		IamEndpoint:                 c.Endpoints["iam"],
 		Insecure:                    c.Insecure,
+		HTTPProxy:                   c.HTTPProxy,
 		MaxRetries:                  c.MaxRetries,
 		Profile:                     c.Profile,
 		Region:                      c.Region,

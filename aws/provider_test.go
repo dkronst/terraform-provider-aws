@@ -835,6 +835,24 @@ func TestAccAWSProvider_Endpoints(t *testing.T) {
 	})
 }
 
+func TestAccAWSProvider_Proxy(t *testing.T) {
+	var providers []*schema.Provider
+
+	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:          func() { testAccPreCheck(t) },
+		ProviderFactories: testAccProviderFactories(&providers),
+		CheckDestroy:      nil,
+		Steps: []resource.TestStep{
+			{
+				Config: testAccProxyProviderConfig,
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckAwsCallerIdentityAccountId("data.aws_caller_identity.current"),
+				),
+			},
+		},
+	})
+}
+
 func TestAccAWSProvider_Endpoints_Deprecated(t *testing.T) {
 	var providers []*schema.Provider
 	var endpointsDeprecated strings.Builder
@@ -1594,6 +1612,14 @@ const testAccCheckAWSProviderConfigAssumeRoleEmpty = `
 provider "aws" {
   assume_role {
   }
+}
+
+data "aws_caller_identity" "current" {}
+`
+
+const testAccProxyProviderConfig = `
+provider "aws" {
+  http_proxy = "http://localhost:8888"
 }
 
 data "aws_caller_identity" "current" {}
